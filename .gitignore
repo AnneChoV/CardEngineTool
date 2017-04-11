@@ -30,7 +30,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-CardEngineTool/Temp/
+Card Engine Tool/Temp/
 
 
 # ============ #
@@ -43,4 +43,4 @@ CardEngineTool/Temp/
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
-CardEngineTool/Library/
+Card Engine Tool/Library/
