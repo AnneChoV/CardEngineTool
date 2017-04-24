@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
-    int typeOfDeck;     //52 Card deck or custom
+        int typeOfDeck = 1;     //52 Card deck or custom
 
-    //HAND
-    int startingHandSize;
-    int minimumSizeOfHand;
-    int maximumSizeOfHand;
+        //HAND
+        int startingHandSize = 4;
+        int minimumSizeOfHand;
+        int maximumSizeOfHand;
 
-    //DECK
-    int numberOfDecks;
-    int deckSize;
+        //DECK
+        int numberOfDecks;
+        int deckSize;
 
-    //TURNS
-    int turnOrder; //NEEDS AN ENUM TO SPECIFY HOW WE PICK TURNS. EG RANDOMIZE, IN ORDER, ETC
+        //TURNS
+        int turnOrder; //NEEDS AN ENUM TO SPECIFY HOW WE PICK TURNS. EG RANDOMIZE, IN ORDER, ETC
 
-    int turnTimer;  //End the turn after this amount of time. 0 for no turn timer.
+        int turnTimer;  //End the turn after this amount of time. 0 for no turn timer.
 }

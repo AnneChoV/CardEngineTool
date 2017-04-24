@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[InitializeOnLoad]
+//[InitializeOnLoad]
 public class Startup : EditorWindow {
 
     string myString = "Welcome to Card Engine Tool v0.1";
