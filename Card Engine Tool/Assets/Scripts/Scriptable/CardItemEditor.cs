@@ -6,7 +6,7 @@ using UnityEditor;
 public class CardItemEditor : EditorWindow {
 
     public DeckOfCards deckOfCards;
-    private int viewIndex = 1;
+    private int viewIndex = 1; // this is for view scrolling through the cards
 
     [MenuItem ("Window/Card Editor %#e")]
     static void Init()
@@ -30,6 +30,7 @@ public class CardItemEditor : EditorWindow {
 
         if (deckOfCards != null)
         {
+            // Shows the currently selected deck in the inspector
             if (GUILayout.Button("Show Deck"))
             {
                 EditorUtility.FocusProjectWindow();
@@ -37,16 +38,16 @@ public class CardItemEditor : EditorWindow {
             }
         }
 
+        // opens a window to select a deck
         if (GUILayout.Button("Open Deck"))
         {
             OpenItemList();
         }
 
+        // Create a new deck
         if (GUILayout.Button("New Deck"))
         {
             CreateNewItemList();
-            //EditorUtility.FocusProjectWindow();
-            //Selection.activeObject = deckOfCards;
         }
         GUILayout.EndHorizontal();
 
@@ -55,11 +56,13 @@ public class CardItemEditor : EditorWindow {
             GUILayout.BeginHorizontal();
             GUILayout.Space(10);
 
+            // Create a new deck
             if (GUILayout.Button("Create New Deck", GUILayout.ExpandWidth(false)))
             {
                 CreateNewItemList();
             }
 
+            // Open an existing deck
             if (GUILayout.Button("Open Existing Deck", GUILayout.ExpandWidth(false)))
             {
                 OpenItemList();
@@ -74,11 +77,13 @@ public class CardItemEditor : EditorWindow {
             GUILayout.BeginHorizontal();
             GUILayout.Space(10);
             
+            // scrolling through list
             if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false)))
             {
                 if (viewIndex > 1)
                 {
                     viewIndex--;
+                    AssetDatabase.Refresh();
                 }
             }
 
@@ -89,17 +94,19 @@ public class CardItemEditor : EditorWindow {
                 if (viewIndex < deckOfCards.itemList.Count)
                 {
                     viewIndex++;
+                    AssetDatabase.Refresh();
                 }
             }
 
             GUILayout.Space(60);
 
-            if (GUILayout.Button("Add Item", GUILayout.ExpandWidth(false)))
+            // add/removing cards from list
+            if (GUILayout.Button("Add Card", GUILayout.ExpandWidth(false)))
             {
                 AddItem();
             }
 
-            if (GUILayout.Button("Delete Item", GUILayout.ExpandWidth(false)))
+            if (GUILayout.Button("Delete Card", GUILayout.ExpandWidth(false)))
             {
                 DeleteItem(viewIndex - 1);
             }
@@ -108,18 +115,18 @@ public class CardItemEditor : EditorWindow {
 
             if (deckOfCards.itemList == null)
             {
-                Debug.Log("Why is this null");
+                // Do nothing
             }
 
-            if (deckOfCards.itemList.Count > 0)
+            else if (deckOfCards.itemList.Count > 0)
             {
                 GUILayout.BeginHorizontal();
-                viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Item", viewIndex, GUILayout.ExpandWidth(false)), 1, deckOfCards.itemList.Count);
-                EditorGUILayout.LabelField("of   " + deckOfCards.itemList.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
+                viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Card", viewIndex, GUILayout.ExpandWidth(false)), 1, deckOfCards.itemList.Count);
+                EditorGUILayout.LabelField("of   " + deckOfCards.itemList.Count.ToString() + "  cards", "", GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
 
-                deckOfCards.itemList[viewIndex - 1].cardName = EditorGUILayout.TextField("Item Name", deckOfCards.itemList[viewIndex - 1].cardName as string);
-                deckOfCards.itemList[viewIndex - 1].cardIcon = EditorGUILayout.ObjectField("Item Icon", deckOfCards.itemList[viewIndex - 1].cardIcon, typeof(Sprite), false) as Sprite;
+                deckOfCards.itemList[viewIndex - 1].cardName = EditorGUILayout.TextField("Card Name", deckOfCards.itemList[viewIndex - 1].cardName as string);
+                deckOfCards.itemList[viewIndex - 1].cardIcon = EditorGUILayout.ObjectField("Card Icon", deckOfCards.itemList[viewIndex - 1].cardIcon, typeof(Sprite), false) as Sprite;
 
                 GUILayout.Space(10);
 
@@ -160,6 +167,7 @@ public class CardItemEditor : EditorWindow {
             {
                 EditorPrefs.SetString("ObjectPath", relPath);
             }
+            AssetDatabase.Refresh();
         }
     }
 
