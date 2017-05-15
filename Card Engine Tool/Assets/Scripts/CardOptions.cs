@@ -73,8 +73,6 @@ public class CardOptions : MonoBehaviour {
         };
     }
 
-
-    void On
 }
 
 
