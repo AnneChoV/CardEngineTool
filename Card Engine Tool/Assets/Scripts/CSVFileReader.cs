@@ -14,7 +14,7 @@ public static class CSVFileReader {
     //EXAMPLE OF HOW TO USE THE FUNCTIONS:
     private static void Start()
     {
-       
+
         //    GetNumberFromFile("CSV - Sheet1", 0, 0);        //This particular call reads from a CSV called "CSV - Sheet1" that is directly located in Resources. If you wanted a folder within resources, you could add the path to the front of the string, eg. "CSVSheets/CSV - Sheet1".
 
 
@@ -34,19 +34,22 @@ public static class CSVFileReader {
 
 
     //Returns all of the data from the CSV file.
-    public static string[,] ReadData(TextAsset CSVtextFile)
+    public static string[,] ReadData(string _dataSheetPath)
     {
-        int lineNumber = CSVtextFile.text.Split(LineSeperater).Length -1;    //Length returns a number one higher than it really is.
+        TextAsset CSV_File = (TextAsset)Resources.Load(_dataSheetPath);
+
+
+        int lineNumber = CSV_File.text.Split(LineSeperater).Length -1;    //Length returns a number one higher than it really is.
         int fieldsPerline;
 
 
         if (lineNumber == 1 || lineNumber == 0)
         {
-            fieldsPerline = (CSVtextFile.text.Split(fieldSeperator).Length - 1);
+            fieldsPerline = (CSV_File.text.Split(fieldSeperator).Length - 1);
         }
         else
         {
-            fieldsPerline = (CSVtextFile.text.Split(fieldSeperator).Length - 1) / (lineNumber - 1);
+            fieldsPerline = (CSV_File.text.Split(fieldSeperator).Length - 1) / (lineNumber - 1);
         }  
 
         //Since there are no commas at the end of the line, lineNumber needs to be negated by one because each line is missing one.
@@ -55,7 +58,7 @@ public static class CSVFileReader {
         string[,] stringArray;
         stringArray = new string[lineNumber +1, fieldsPerline + 1];
 
-        string[] Lines = CSVtextFile.text.Split(LineSeperater);   //Split each line into which character we are talking about.
+        string[] Lines = CSV_File.text.Split(LineSeperater);   //Split each line into which character we are talking about.
         for (int x = 0; x <= lineNumber; x++)
         {
             string[] fields = Lines[x].Split(fieldSeperator);
@@ -97,9 +100,7 @@ public static class CSVFileReader {
 
     public static int GetNumberFromFile(string _dataSheetPath, int _column, int _row)
     {
-        TextAsset CSV_File = (TextAsset)Resources.Load(_dataSheetPath);
-
-        string[,] CSVData = CSVFileReader.ReadData(CSV_File);
+        string[,] CSVData = CSVFileReader.ReadData(_dataSheetPath);
 
 
         Debug.Log(CSVData.Length);
