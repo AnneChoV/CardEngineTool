@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour {
     public int turnTimer;  //End the turn after this amount of time. 0 for no turn timer.
 
 
+    public DeckOfCards cardDeck;
+
+
+
     public enum TypeOfDeck
     {
         Standard52CardDeck,
@@ -36,6 +40,7 @@ public class GameManager : MonoBehaviour {
         cardOptions = GetComponent<CardOptions>();
         deckOptions = GetComponent<DeckOptions>();
 
+
         if (DeckType == TypeOfDeck.Custom)
         {
            
@@ -45,4 +50,14 @@ public class GameManager : MonoBehaviour {
 
         }
     }
+
+    private void Update()
+    {
+
+    }
+
+
+
+
+
 }
