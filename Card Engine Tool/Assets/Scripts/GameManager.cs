@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour {
     }
 
     private void OnValidate()
-    { 
-        cardOptions = GetComponent<CardOptions>();
+    {
+       // cardOptions = GetComponent<CardOptions>();
         deckOptions = GetComponent<DeckOptions>();
 
 

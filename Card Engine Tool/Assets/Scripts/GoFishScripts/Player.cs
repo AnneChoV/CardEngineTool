@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 
     public List<CardItem> m_CardHand;
 
+
+
     public int CheckAmountOfCardsInHandOfRank(int _rankNumber)
     {
         int counter = 0;
