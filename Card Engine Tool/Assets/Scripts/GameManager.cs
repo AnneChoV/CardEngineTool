@@ -58,14 +58,14 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        Debug.Log("Display first few cards");
+        //Debug.Log("Display first few cards");
 
-        for (int i = 0; i < 6; i++)
-        {
-            Sprite sprite = deckOfCards.itemList[i].cardIcon;
-            GameObject card = Instantiate(Resources.Load("TempCard"), cardHand) as GameObject;
-            card.GetComponent<Image>().sprite = sprite;
-        }
+        //for (int i = 0; i < 8; i++)
+        //{
+        //    Sprite sprite = deckOfCards.itemList[i].cardIcon;
+        //    GameObject card = Instantiate(Resources.Load("TempCard"), cardHand) as GameObject;
+        //    card.GetComponent<Image>().sprite = sprite;
+        //}
     }
 
     public void ChangeFace()
