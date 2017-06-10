@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
-    CardOptions cardOptions;
+    //CardOptions cardOptions;
     DeckOptions deckOptions;
 
     //Deck Type
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
     private void OnValidate()
     {
-        cardOptions = GetComponent<CardOptions>();
+       // cardOptions = GetComponent<CardOptions>();
         deckOptions = GetComponent<DeckOptions>();
 
 

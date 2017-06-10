@@ -15,7 +15,7 @@ public class Manager : MonoBehaviour{
 
     private void Start()
     {
-        cardDeck.ShuffleDeck();
+      //  cardDeck.ShuffleDeck();
         for (int i = 0; i < players.Length; i++)
         {
             players[i].m_CardHand = cardDeck.CreateHand(startingHandSize);
