@@ -126,7 +126,11 @@ public class CardItemEditor : EditorWindow {
                 GUILayout.EndHorizontal();
 
                 deckOfCards.itemList[viewIndex - 1].cardName = EditorGUILayout.TextField("Card Name", deckOfCards.itemList[viewIndex - 1].cardName as string);
+                //Add Card Variables To Edit Here:
+
+
                 deckOfCards.itemList[viewIndex - 1].cardIcon = EditorGUILayout.ObjectField("Card Icon", deckOfCards.itemList[viewIndex - 1].cardIcon, typeof(Sprite), false) as Sprite;
+
 
                 GUILayout.Space(10);
 
