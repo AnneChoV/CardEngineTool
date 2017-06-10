@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public Transform cardHand;
     public Sprite kittyBack;
 
-    CardOptions cardOptions;
+    //CardOptions cardOptions;
     DeckOptions deckOptions;
 
     //Deck Type
