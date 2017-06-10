@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+
+    public DeckOfCards deckOfCards;
+    public Transform cardHand;
+    public Sprite kittyBack;
 
     CardOptions cardOptions;
     DeckOptions deckOptions;
@@ -32,7 +37,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void OnValidate()
-    {
+    { 
         cardOptions = GetComponent<CardOptions>();
         deckOptions = GetComponent<DeckOptions>();
 
@@ -43,6 +48,26 @@ public class GameManager : MonoBehaviour {
         else
         {
 
+        }
+    }
+
+    private void Start()
+    {
+        Debug.Log("Display first few cards");
+
+        for (int i = 0; i < 6; i++)
+        {
+            Sprite sprite = deckOfCards.itemList[i].cardIcon;
+            GameObject card = Instantiate(Resources.Load("TempCard"), cardHand) as GameObject;
+            card.GetComponent<Image>().sprite = sprite;
+        }
+    }
+
+    public void ChangeFace()
+    {
+        for (int i = 0; i < cardHand.childCount; i++)
+        {
+            cardHand.GetChild(i).GetComponent<Image>().sprite = kittyBack;
         }
     }
 }
