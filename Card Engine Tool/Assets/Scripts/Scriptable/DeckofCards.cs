@@ -4,23 +4,42 @@ using UnityEngine;
 
 public class DeckOfCards : ScriptableObject
 {
-    public List<CardItem> cardList;
+    public List<CardItem> itemList;
 
     public List<CardItem> ShuffleDeck()
     {
         List<CardItem> shuffledList = new List<CardItem>();
-        for (int i = cardList.Count; i > 0;)
+        for (int i = itemList.Count; i > 0;)
         {
-            int randomNumber = Random.Range(0, cardList.Count);
-            shuffledList.Add(cardList[randomNumber]);
-            cardList.RemoveRange(randomNumber, 1);
+            int randomNumber = Random.Range(0, itemList.Count);
+            shuffledList.Add(itemList[randomNumber]);
+            itemList.RemoveRange(randomNumber, 1);
         }
-        cardList = shuffledList;
+        itemList = shuffledList;
         return shuffledList;
     }
 
-    public void RemoveOneCardFromList(int index)
+    public CardItem RemoveOneCardFromList(int _index)
     {
-        cardList.RemoveRange(index, 1);
+        CardItem cardItem = itemList[_index];
+        itemList.RemoveRange(_index, 1);
+        return cardItem;
+    }
+    public CardItem RemoveOneCardFromList(CardItem cardItem)
+    {        
+        itemList.Remove(cardItem);
+        return cardItem;
+    }
+
+    public List<CardItem> CreateHand(int _numberOfCards)
+    {
+        List<CardItem> newHand = new List<CardItem>();
+
+        for (int i = 0; i < _numberOfCards; i++)
+        {
+            newHand.Add(itemList[0]);
+            RemoveOneCardFromList(0);
+        }
+        return newHand;
     }
 }

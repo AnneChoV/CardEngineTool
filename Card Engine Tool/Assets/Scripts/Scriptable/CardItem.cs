@@ -8,4 +8,7 @@ public class CardItem {
     public string cardName = "New Card";
     public Sprite cardIcon = null;
 
+    public int m_cardRank = 0;
+    public int m_cardSuit = 0;
+
 }
