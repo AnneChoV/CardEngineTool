@@ -15,5 +15,4 @@ public class CreateDeckOfCards
         AssetDatabase.SaveAssets();
         return asset;
     }
-
 }

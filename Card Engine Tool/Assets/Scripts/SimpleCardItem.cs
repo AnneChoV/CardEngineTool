@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CardItem {
+public class SimpleCardItem : CardItem{
 
-    public string m_CardName = "New Card";
-    public Sprite m_CardImage = null;
+    public int m_CardRank = 0;
+    public int m_CardSuit = 0;
+
 }

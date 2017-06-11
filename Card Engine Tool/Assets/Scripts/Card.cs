@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
-public class Card {
+public class CardData
+{
+    // Fill variables here
+    public string m_Name;
 
-    public string cardName = string.Empty;
-    public string cardType = string.Empty;
-    public string cardDescription = string.Empty;
+    // Go fish variables
+    public int m_Suit;
+    public int m_Rank;
+    public Sprite m_Image;
+}
 
+public class Card : MonoBehaviour
+{
+    public CardData m_CardData = new CardData();
 }
