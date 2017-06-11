@@ -26,7 +26,7 @@ public class Player : MonoBehaviour {
         m_Hand = _newHand;
         for (int i = 0; i < _newHand.Count; i++)
         {
-            _newHand[i].transform.parent = transform;
+            _newHand[i].transform.SetParent(transform);// = transform;
             RefreshHandDisplay();
         }
     }
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour {
     public virtual void AddCardToHand(Card _card)
     {
         m_Hand.Add(_card);
-        _card.transform.parent = transform;
+        _card.transform.SetParent(transform);
         RefreshHandDisplay();
     }
 

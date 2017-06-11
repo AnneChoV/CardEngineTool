@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public List<GameTurn> m_OrderPattern;
     public int m_CurrentTurn = 0;
+    public Text turnOrderText;
 
     protected Deck[] m_InstancedDecks;
 
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
                 FullyEndGame();
             }
         }
+        turnOrderText.text = "Player " + (m_CurrentTurn + 1) + "'s turn";
     }
 
     //INITIALIZATION FUNCTIONS:
@@ -216,7 +218,7 @@ public class GameManager : MonoBehaviour
         {
             if (m_InstancedDecks[_deckIndex].cards.Count > 0)
             {
-                Card randomCard = (m_InstancedDecks[_deckIndex].DrawRandomCard();
+                Card randomCard = (m_InstancedDecks[_deckIndex].DrawRandomCard());
                 if (randomCard)
                 {
                     newHand.Add(randomCard);

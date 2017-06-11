@@ -11,6 +11,7 @@ public class GoFishPlayer : Player, IPointerClickHandler
     protected GoFishPlayer GetCurrentPlayer()
     {
         int order = m_GameManager.m_CurrentTurn % m_GameManager.m_OrderPattern.Count;
+        Debug.Log("Order: " + order);
         return (GoFishPlayer)m_GameManager.m_Players[m_GameManager.m_OrderPattern[order].PlayerTurns[0]];
     }
 
