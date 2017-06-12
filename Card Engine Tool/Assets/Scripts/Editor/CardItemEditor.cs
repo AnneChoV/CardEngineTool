@@ -235,7 +235,8 @@ public class CardItemEditor : EditorWindow
 
             d.AddCardToTop(card);
         }
-        PrefabUtility.CreatePrefab( "Assets/Prefabs/Decks/" + DeckAssetName + ".prefab", DeckGO);
+        // Ignore the error message, this is still functional
+        PrefabUtility.CreatePrefab( "Assets/Decks/Prefabs/" + DeckAssetName + ".prefab", DeckGO);
         GameObject.DestroyImmediate(DeckGO);
     }
 }

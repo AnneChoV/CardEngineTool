@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool m_InProgress = true;
     public Player[] m_Players;
     public GameObject[] m_Decks;
+    public int HandSize = 7;
 
     public List<GameTurn> m_OrderPattern;
     public int m_CurrentTurn = 0;
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < m_Players.Length; i++)
         {
-            m_Players[i].InitializeGame(CreateHand(7));
+            m_Players[i].InitializeGame(CreateHand(HandSize));
         }
     }
 

@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class GoFishPlayer : Player, IPointerClickHandler
 {
     public Card m_SelectedCard;
     public GoFishPlayer m_SelectedPlayer;
+    public Text outputLog;
 
     public int m_Score = 0;
 
     protected GoFishPlayer GetCurrentPlayer()
     {
         int order = m_GameManager.m_CurrentTurn % m_GameManager.m_OrderPattern.Count;
-        Debug.Log("Order: " + order);
+        //Debug.Log("Order: " + order);
         return (GoFishPlayer)m_GameManager.m_Players[m_GameManager.m_OrderPattern[order].PlayerTurns[0]];
     }
 
@@ -30,7 +32,7 @@ public class GoFishPlayer : Player, IPointerClickHandler
         }
         else
         {
-            Debug.Log("sending");
+            //Debug.Log("sending");
             GetCurrentPlayer().SelectPlayer(dataGO);
         }
     }
@@ -129,20 +131,21 @@ public class GoFishPlayer : Player, IPointerClickHandler
         Card stolenCard = m_SelectedPlayer.RemoveOneFromHandOfRank(m_SelectedCard.m_CardData.m_Rank);
         if (stolenCard)
         {
-            Debug.Log("Managed to steal " + stolenCard.name + " with " + m_SelectedCard);
+            outputLog.text = "Managed to take " + stolenCard.name + " from " + m_SelectedPlayer.name + "\n" + GetCurrentPlayer().name + "'s turn again!";
+            //Debug.Log("Managed to take " + stolenCard.name + " with " + m_SelectedCard);
             AddCardToHand(stolenCard);
             return true;
         }
         else
         {
-            Debug.Log("Failed to steal anything with " + m_SelectedCard);
+            outputLog.text = m_SelectedPlayer.name + " didn't have "+ m_SelectedCard + ". Drawing a card";
+            //Debug.Log("Failed to take anything with " + m_SelectedCard);
             return false;
         }
     }
 
     public override void RefreshHandDisplay()
     {
-        Debug.Log("Refreshing");
         for (int i = 0; i < m_Hand.Count; i++)
         {
             Vector3 newPosition = transform.position;

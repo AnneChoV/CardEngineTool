@@ -11,7 +11,7 @@ public class CreateDeckOfCards
     {
         DeckOfCards asset = ScriptableObject.CreateInstance<DeckOfCards>();
 
-        AssetDatabase.CreateAsset(asset, "Assets/DeckOfCards.asset");
+        AssetDatabase.CreateAsset(asset, "Assets/Decks/ScriptableObjects/DeckOfCards.asset");
         AssetDatabase.SaveAssets();
         return asset;
     }

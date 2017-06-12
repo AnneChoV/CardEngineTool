@@ -61,7 +61,7 @@ public static class DeckBuilder
                 d.AddCardToTop(card);
             }
         }
-        PrefabUtility.CreatePrefab("Assets/Prefabs/Decks/Standard Deck Asset.prefab", go);
+        PrefabUtility.CreatePrefab("Assets/Decks/Prefabs/Standard Deck Asset.prefab", go);
         GameObject.DestroyImmediate(go);
     }
 
