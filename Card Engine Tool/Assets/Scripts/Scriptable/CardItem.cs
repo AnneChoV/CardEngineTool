@@ -5,6 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class CardItem {
 
-    public string m_CardName = "New Card";
-    public Sprite m_CardImage = null;
+    // Fill variables here
+    public string m_Name;
+
+    // Go fish variables
+    public int m_Suit;
+    public int m_Rank;
+    public Sprite m_Image;
 }

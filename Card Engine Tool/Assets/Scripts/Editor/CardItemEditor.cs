@@ -125,11 +125,10 @@ public class CardItemEditor : EditorWindow {
                 EditorGUILayout.LabelField("of   " + deckOfCards.itemList.Count.ToString() + "  cards", "", GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
 
-                //deckOfCards.itemList[viewIndex - 1].m_CardName = EditorGUILayout.TextField("Card Name", deckOfCards.itemList[viewIndex - 1].m_CardName as string);
-                //Add Card Variables To Edit Here:
-
-
-                //deckOfCards.itemList[viewIndex - 1].m_CardImage = EditorGUILayout.ObjectField("Card Icon", deckOfCards.itemList[viewIndex - 1].m_CardImage, typeof(Sprite), false) as Sprite;
+                deckOfCards.itemList[viewIndex - 1].m_CardData.m_Name = EditorGUILayout.TextField("Card Name", deckOfCards.itemList[viewIndex - 1].m_CardData.m_Name as string);
+                deckOfCards.itemList[viewIndex - 1].m_CardData.m_Rank = EditorGUILayout.IntField("Card Rank", deckOfCards.itemList[viewIndex - 1].m_CardData.m_Rank);
+                deckOfCards.itemList[viewIndex - 1].m_CardData.m_Suit = EditorGUILayout.IntField("Card Suit", deckOfCards.itemList[viewIndex - 1].m_CardData.m_Suit);
+                deckOfCards.itemList[viewIndex - 1].m_CardData.m_Image = EditorGUILayout.ObjectField("Card Icon", deckOfCards.itemList[viewIndex - 1].m_CardData.m_Image, typeof(Sprite), false) as Sprite;
 
 
                 GUILayout.Space(10);
@@ -152,7 +151,7 @@ public class CardItemEditor : EditorWindow {
         deckOfCards = CreateDeckOfCards.Create();
         if (deckOfCards)
         {
-            //deckOfCards.itemList = new List<CardItem>();
+            deckOfCards.itemList = new List<Card>();
             string relPath = AssetDatabase.GetAssetPath(deckOfCards);
             EditorPrefs.SetString("ObjectPath", relPath);
         }
@@ -166,7 +165,7 @@ public class CardItemEditor : EditorWindow {
             string relPath = absPath.Substring(Application.dataPath.Length - "Assets".Length);
             deckOfCards = AssetDatabase.LoadAssetAtPath(relPath, typeof(DeckOfCards)) as DeckOfCards;
             if (deckOfCards.itemList == null)
-                //deckOfCards.itemList = new List<CardItem>();
+                deckOfCards.itemList = new List<Card>();
             if (deckOfCards)
             {
                 EditorPrefs.SetString("ObjectPath", relPath);
@@ -177,8 +176,12 @@ public class CardItemEditor : EditorWindow {
 
     void AddItem()
     {
-        CardItem newItem = new CardItem();
-        //deckOfCards.itemList.Add(newItem);
+        //Transform testHand = GameObject.Find("TestHand").transform;
+        //GameObject card = Instantiate(Resources.Load("TempCard"), testHand) as GameObject;
+
+        Card newItem = new Card();
+
+        deckOfCards.itemList.Add(newItem);
         viewIndex = deckOfCards.itemList.Count;
     }
 

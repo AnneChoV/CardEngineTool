@@ -128,8 +128,8 @@ public class SimpleCardItemEditor : EditorWindow {
 
                 SimpleCardItem card = (SimpleCardItem)(deckOfCards.itemList[viewIndex - 1]);
 
-                card.m_CardName = EditorGUILayout.TextField("Card Name", card.m_CardName);
-                card.m_CardImage = (Sprite)(EditorGUILayout.ObjectField("Card Icon", card.m_CardImage, typeof(Sprite), false));
+                card.m_Name = EditorGUILayout.TextField("Card Name", card.m_Name);
+                card.m_Image = (Sprite)(EditorGUILayout.ObjectField("Card Icon", card.m_Image, typeof(Sprite), false));
                 card.m_CardSuit = EditorGUILayout.IntField("Card Suit", card.m_CardSuit);
                 card.m_CardRank = EditorGUILayout.IntField("Card Rank", card.m_CardRank);
 
