@@ -109,10 +109,10 @@ public static class DeckBuilder
 //        CreateNewItemList();
 
 //    }
-	
+
 //	// Update is called once per frame
 //	void Update () {
-		
+
 //	}
 
 //    void CreateNewItemList()

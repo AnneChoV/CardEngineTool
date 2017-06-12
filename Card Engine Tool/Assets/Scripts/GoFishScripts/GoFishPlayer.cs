@@ -8,6 +8,8 @@ public class GoFishPlayer : Player, IPointerClickHandler
     public Card m_SelectedCard;
     public GoFishPlayer m_SelectedPlayer;
 
+    public int m_Score = 0;
+
     protected GoFishPlayer GetCurrentPlayer()
     {
         int order = m_GameManager.m_CurrentTurn % m_GameManager.m_OrderPattern.Count;
@@ -99,6 +101,8 @@ public class GoFishPlayer : Player, IPointerClickHandler
         {
             PlayCard(cardIndexes[m]);
         }
+
+        m_Score++;
         return true;
     }
 
