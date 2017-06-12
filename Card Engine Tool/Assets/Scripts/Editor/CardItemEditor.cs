@@ -9,7 +9,10 @@ public class CardItemEditor : EditorWindow
 
     public DeckOfCards deckOfCards;
     [HideInInspector]
+    public string DeckAssetName;
+    [HideInInspector]
     public string DeckName;
+
     private int viewIndex = 1; // this is for view scrolling through the cards
 
     [MenuItem("Window/Card Editor %#e")]
@@ -135,6 +138,7 @@ public class CardItemEditor : EditorWindow
                     deckOfCards.cardList[viewIndex - 1].m_Name = "New Card";
                 }
 
+                // Edit stuff here !!!!!!!!!!!!!!!!!!!!!!!!!!!
                 deckOfCards.cardList[viewIndex - 1].m_Name = EditorGUILayout.TextField("Card Name", deckOfCards.cardList[viewIndex - 1].m_Name as string);
                 deckOfCards.cardList[viewIndex - 1].m_Rank = EditorGUILayout.IntField("Card Rank", deckOfCards.cardList[viewIndex - 1].m_Rank);
                 deckOfCards.cardList[viewIndex - 1].m_Suit = EditorGUILayout.IntField("Card Suit", deckOfCards.cardList[viewIndex - 1].m_Suit);
@@ -143,7 +147,7 @@ public class CardItemEditor : EditorWindow
 
                 GUILayout.Space(10);
 
-                DeckName = EditorGUILayout.TextField("Deck Name", DeckName);
+                DeckAssetName = EditorGUILayout.TextField("Deck Asset Name", DeckAssetName);
 
                 GUILayout.Space(10);
             }
@@ -231,7 +235,7 @@ public class CardItemEditor : EditorWindow
 
             d.AddCardToTop(card);
         }
-        PrefabUtility.CreatePrefab( "Assets/Prefabs/Decks/" + DeckName + ".prefab", DeckGO);
+        PrefabUtility.CreatePrefab( "Assets/Prefabs/Decks/" + DeckAssetName + ".prefab", DeckGO);
         GameObject.DestroyImmediate(DeckGO);
     }
 }
