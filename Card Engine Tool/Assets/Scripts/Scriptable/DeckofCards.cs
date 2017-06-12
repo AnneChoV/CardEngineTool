@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+
+
+[CreateAssetMenu(fileName = "Test", menuName = "Inventory/List", order = 1)]
 
 public class DeckOfCards : ScriptableObject
 {
-
+    [HideInInspector]
     public List<Card> itemList;
- 
-    
+    public List<CardItem> cardList;
+
+
     //public virtual List<Card> ShuffleDeck()
     //{
     //    List<Card> shuffledList = new List<Card>();

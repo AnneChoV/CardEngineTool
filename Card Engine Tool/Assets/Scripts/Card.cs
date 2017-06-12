@@ -14,6 +14,7 @@ public class CardData
     public Sprite m_Image;
 }
 
+[System.Serializable]
 public class Card : MonoBehaviour
 {
     public CardData m_CardData = new CardData();
