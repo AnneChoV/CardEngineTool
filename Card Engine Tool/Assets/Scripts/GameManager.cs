@@ -77,6 +77,9 @@ public class GameManager : MonoBehaviour
     }
 
     //INITIALIZATION FUNCTIONS:
+
+    //The first function of note is the InitializeGame function. 
+    //This is used to call the deck initializations and the player initializations and to start the first turn. 
     protected virtual void InitializeGame()
     {
         InitializeDecks();
@@ -84,6 +87,8 @@ public class GameManager : MonoBehaviour
         StartNewTurn();
     }
 
+    //The default InitializeDecks is used to instantiate and shuffle all the decks that the game uses. 
+    //If the user wishes to Initialize Decks somewhere that isn’t game startup or doesn’t want them shuffled, they can override the function as needed.
     protected virtual void InitializeDecks()
     {
         m_InstancedDecks = new Deck[m_Decks.Length];
@@ -99,6 +104,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //The default InitializePlayers calls the PlayerScripts own Initialize Game on each player. 
+    //By default, it passes a hand cards to each player via the Create Hand Function (see below) that the Player Script will use to set up its’ hand.
     protected virtual void InitializePlayers()
     {
         for (int i = 0; i < m_Players.Length; i++)
@@ -108,23 +115,30 @@ public class GameManager : MonoBehaviour
     }
 
     //TURN FUNCTIONS:
+
+        //By default, StartNewTurn reads the current turn and compares it to the order pattern in order to envoke the StartTurn() function of the players who are having their current turn.
+    public virtual void StartNewTurn()
+    {
+        int order = m_CurrentTurn % m_OrderPattern.Count;
+        for (int i = 0; i < m_OrderPattern[order].PlayerTurns.Count; i++)
+        {
+            m_Players[m_OrderPattern[order].PlayerTurns[i]].StartTurn();
+        }
+    }
+
+
+    //ForceTurnEnd is checked every frame in the Game Manager Update to see whether the current game turn should end (aka when it returns true). 
+    //By default, it only returns false, however, the user can override this to end turns (by making it return true) when needed. 
+    //If the user, for example, wanted timed turns, they could override the function to return true after a timer reaches the max time state.
     public virtual bool ForceTurnEnd()
     {
         // If we wanted to end turns early via timer would do so here
         return false;
     }
 
+    //This function which doesn’t support overriding functionality automatically returns true if there are no current players in play, aka, when the turn has ended naturally.
     public bool TurnNaturallyEnded()
     {
-        //int order = m_CurrentTurn % m_OrderPattern.Count;
-        //for (int i = 0; i < m_OrderPattern[order].Count; i++)
-        //{
-        //    if (m_Players[m_OrderPattern[order][i]].m_InPlay)
-        //    {
-        //        return false;
-        //    }
-        //}
-
         int order = m_CurrentTurn % m_OrderPattern.Count;
 
         for (int i = 0; i < m_OrderPattern[order].PlayerTurns.Count; i++)
@@ -137,30 +151,11 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public virtual void StartNewTurn()
-    {
-        //int order = m_CurrentTurn % m_OrderPattern.Count;
-        //for (int i = 0; i < m_OrderPattern[order].Count; i++)
-        //{
-        //    m_Players[m_OrderPattern[order][i]].StartTurn();
-        //}
-
-        int order = m_CurrentTurn % m_OrderPattern.Count;
-        for (int i = 0; i < m_OrderPattern[order].PlayerTurns.Count; i++)
-        {
-            m_Players[m_OrderPattern[order].PlayerTurns[i]].StartTurn();
-        }
-    }
-
+    //This function causes all the players to call their EndTurn function, and is recommended to be used purposely every turn end to end all players turns as it serves as a cheap failsafe. 
+    //It is the only function which increments the current turn amount, which the turn system relies upon. 
+    //The recommended overriding usage case of this would call the base functionality and then add turn ending aesthetics and mechanics on top.
     public virtual void FullyEndTurn()
     {
-        //int order = m_CurrentTurn % m_OrderPattern.Count;
-        //for (int i = 0; i < m_OrderPattern[order].Count; i++)
-        //{
-        //    m_Players[m_OrderPattern[order][i]].EndTurn();
-        //}
-        //m_CurrentTurn++;
-
         int order = m_CurrentTurn % m_OrderPattern.Count;
         for (int i = 0; i < m_OrderPattern[order].PlayerTurns.Count; i++)
         {
@@ -170,6 +165,9 @@ public class GameManager : MonoBehaviour
     }
 
     //GAME END/WINSTATE FUNCTIONS:
+
+    //This function returns the winner of the game according to simple win conditions. Currently, it returns true if there is only one player left in the game (used for something like a battlecard game). 
+    //But it could be overriden to check, for example, a player has reached 21 points in BlackJack, or if only one player is no longer playing (like in last card).
     public virtual Player CheckForSimpleWin()
     {
         Player winner = null;
@@ -190,6 +188,8 @@ public class GameManager : MonoBehaviour
         return winner;
     }
 
+    //This function can be overriden to return true to end the game early(IE before all the players are knocked out). 
+    //It returns false by default.
     public virtual bool ForceGameEnd()
     {
         //E.G:
@@ -201,6 +201,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    //This function interates through the players and causes them to use their EndGame() function. 
+    //It also sets the m_Inprogress variable to false which identifies that the game is over. 
+    //This function can be overridden to make animations or scene changes happen when the game ends.
     public virtual void FullyEndGame()
     {
         for (int i = 0; i < m_Players.Length; i++)
@@ -211,6 +214,9 @@ public class GameManager : MonoBehaviour
     }
 
     //CARD AND DECK FUNCTIONS:
+
+    //CreateHand returns a randomly picked array of the same size as the _handSize from the deck passed in through deck index (it default picks from Deck 0). 
+    //It also removes these cards from the deck.
     public virtual List<Card> CreateHand(int _handSize, int _deckIndex = 0)
     {
         List<Card> newHand = new List<Card>();
@@ -228,11 +234,13 @@ public class GameManager : MonoBehaviour
         return newHand;
     }
 
+    //Draw from deck calls the DrawRandomCard function from the deck, which returns a random card and deletes it from the deck.
     public virtual Card DrawFromDeck(int _deckIndex = 0)
     {
         return m_InstancedDecks[_deckIndex].DrawRandomCard();
     }
 
+    //Returns true if any of the decks are empty.
     public bool CheckIfAnyDecksAreEmpty()
     {
         for (int i = 0; i < m_Decks.Length; i++)
@@ -243,6 +251,7 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    //This function checks and returns the number of empty decks in the decks array
     public int CheckNumberOfDecksEmpty()
     {
         int counter = 0;
@@ -254,83 +263,9 @@ public class GameManager : MonoBehaviour
         return counter;
     }
 
+    //Returns true only if all decks have no cards left
     public bool CheckIfAllDecksEmpty()
     {
         return CheckNumberOfDecksEmpty() == m_Decks.Length;
     }
-
-
-
-
-    //public DeckOfCards<T> deckOfCards;
-    //public Transform cardHand;
-    //public Sprite kittyBack;
-
-    //CardOptions cardOptions;
-    //DeckOptions deckOptions;
-
-    ////Deck Type
-    //public TypeOfDeck DeckType;     //52 Card deck or custom
-
-    ////DECK
-    //public int numberOfDecks;
-    //public int deckSize;
-
-    ////HAND
-    //public int startingHandSize;   
-    //public int minimumSizeOfHand;
-    //public int maximumSizeOfHand;
-
-    ////TURNS
-    //public int m_CurrentTurn;
-
-    //public int turnOrder; //NEEDS AN ENUM TO SPECIFY HOW WE PICK TURNS. EG RANDOMIZE, IN ORDER, ETC
-    //public int turnTimer;  //End the turn after this amount of time. 0 for no turn timer.
-
-
-    //public DeckOfCards<CardItem> cardDeck;
-
-
-
-    //public enum TypeOfDeck
-    //{
-    //    Standard52CardDeck,
-    //    Custom
-    //}
-
-    //private void OnValidate()
-    //{
-    //    cardOptions = GetComponent<CardOptions>();
-    //    deckOptions = GetComponent<DeckOptions>();
-
-
-    //    if (DeckType == TypeOfDeck.Custom)
-    //    {
-
-    //    }
-    //    else
-    //    {
-
-    //    }
-    //}
-
-    //private void Start()
-    //{
-    //    //Debug.Log("Display first few cards");
-
-    //    for (int i = 0; i < 8; i++)
-    //    {
-    //        Sprite sprite = deckOfCards.itemList[i].m_CardImage;
-    //        GameObject card = Instantiate(Resources.Load("TempCard"), cardHand) as GameObject;
-    //        card.GetComponent<Image>().sprite = sprite;
-    //    }
-    //}
-
-    //public void ChangeFace()
-    //{
-    //    for (int i = 0; i < cardHand.childCount; i++)
-    //    {
-    //        cardHand.GetChild(i).GetComponent<Image>().sprite = kittyBack;
-    //    }
-    //}
 }
